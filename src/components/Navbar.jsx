@@ -1,17 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { IoMenu } from 'react-icons/io5';
 import { Link, NavLink } from 'react-router';
+import { AuthContext } from '../context/AuthContext';
 
 const Navbar = () => {
     const [isDark, setIsDark] = useState(false);
-    const { user, logOut } = useState();
+    const { user, logOut } = use(AuthContext);
 
     const navLink = <>
         <li><NavLink>Home</NavLink></li>
         <li><NavLink>All Post</NavLink></li>
     </>
 
-     useEffect(() => {
+    useEffect(() => {
         const savedTheme = localStorage.getItem("theme") || "light";
         document.documentElement.setAttribute("data-theme", savedTheme);
         setIsDark(savedTheme === "dark");
@@ -24,9 +25,9 @@ const Navbar = () => {
         setIsDark(checked);
     };
 
-     const handleSignOut = () => {
-    logOut().then().catch();
-  };
+    const handleSignOut = () => {
+        logOut().then().catch();
+    };
 
     return (
         <div className="navbar ">
@@ -81,7 +82,7 @@ const Navbar = () => {
                         </ul>
                     </div>
                 ) : (
-                    <Link to='/logIn' className="btn">Sign In</Link>
+                    <Link to='/signIn' className="btn">Sign In</Link>
                 )}
             </div>
         </div>
