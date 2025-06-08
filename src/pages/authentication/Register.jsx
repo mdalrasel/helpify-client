@@ -2,9 +2,10 @@ import { use, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-
+import registerLottie from '../../assets/register.json'
 import { updateProfile } from "firebase/auth";
 import { AuthContext } from "../../context/AuthContext";
+import Lottie from "lottie-react";
 
 
 const Register = () => {
@@ -83,7 +84,7 @@ const Register = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center ">
-            <div className=" p-8 rounded-xl border shadow-xl w-full max-w-md">
+            <div className="flex-1 p-8 rounded-xl  shadow-2xl w-full max-w-md">
                 <h2 className="text-2xl font-bold mb-6 text-center">Registetion Now !</h2>
 
                 <form onSubmit={handleRegister} className="space-y-4">
@@ -151,6 +152,9 @@ const Register = () => {
                         Login here
                     </Link>
                 </p>
+            </div>
+            <div className="flex-1 md:block   hidden">
+                <Lottie style={{ width: "320px", height: "400px" }} animationData={registerLottie} />
             </div>
         </div>
     );
