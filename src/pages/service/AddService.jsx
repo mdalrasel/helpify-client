@@ -16,11 +16,13 @@ const AddService = () => {
         const name = form.name.value;
         const price = form.price.value;
         const area = form.area.value;
+         const category = form.category.value;
         const description = form.description.value;
 
         const newService = {
             image,
             name,
+            category,
             price: parseFloat(price),
             area,
             description,
