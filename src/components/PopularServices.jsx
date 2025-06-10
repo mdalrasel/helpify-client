@@ -37,7 +37,7 @@ const PopularServices = () => {
                                 </div>
                                 <span className="text-base font-semibold text-green-600">${service.price}</span>
                             </div>
-                            <Link to={`/service/${service._id}`}>
+                            <Link to={`/details/${service._id}`}>
                                 <button className="btn btn-sm btn-outline btn-primary mt-3">View Details</button>
                             </Link>
                         </div>

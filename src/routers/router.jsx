@@ -7,6 +7,7 @@ import ErrorPage from "../pages/errorPage/ErrorPage";
 import AllPost from "../components/AllPost";
 import Deshboard from "../components/Deshboard";
 import AddService from "../pages/service/AddService";
+import Details from "../components/Details";
 
 
 export const router = createBrowserRouter([
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path:'add-service',
         Component:AddService
+      },
+      {
+        path:'/details/:id',
+        Component:Details
       }
     ]
   },
