@@ -58,25 +58,40 @@ const AddService = () => {
             <form onSubmit={handleAddService} className="grid grid-cols-1 gap-5">
 
                 <label >
-                    <span className=" font-medium flex items-center gap-2"><FaImage /> Image URL</span>
-                    <input type="text" name="image" placeholder="https://..." className="input input-bordered w-full" required />
-                </label>
-
-                <label >
                     <span className=" font-medium flex items-center gap-2"><FaTag /> Service Name</span>
                     <input type="text" name="name" placeholder="Service Name" className="input input-bordered w-full" required />
                 </label>
-
+                <div className=" w-full">
+                    <label className="label">
+                        <span  className="font-medium flex items-center gap-2 mb-1"><FaTag />Select Category</span>
+                    </label>
+                    <select
+                        name="category"
+                        required
+                        className="select select-bordered w-full"
+                    >
+                        <option disabled selected>Select Category</option>
+                        <option value="Tutoring">Tutoring</option>
+                        <option value="Skill Development">Skill Development</option>
+                        <option value="Language Learning">Language Learning</option>
+                        <option value="Spiritual Studies">Spiritual Studies</option>
+                        <option value="Academic Support">Academic Support</option>
+                    </select>
+                </div>
                 <label >
                     <span className=" font-medium flex items-center gap-2"><FaDollarSign /> Price</span>
                     <input type="number" name="price" placeholder="100" className="input input-bordered w-full" required />
                 </label>
-
+                <label >
+                    <span className=" font-medium flex items-center gap-2"><FaImage /> Image URL</span>
+                    <input type="text" name="image" placeholder="https://..." className="input input-bordered w-full" required />
+                </label>
+                
+                
                 <label >
                     <span className=" font-medium flex items-center gap-2"><FaMapMarkerAlt /> Service Area</span>
                     <input type="text" name="area" placeholder="Dhaka, Chittagong..." className="input input-bordered w-full" required />
                 </label>
-
                 <label className="form-control">
                     <span className="label-text flex items-center gap-2 "><FaAlignLeft /> Description</span>
                     <textarea
@@ -100,22 +115,18 @@ const AddService = () => {
                         )}
                     </div>
                 </label>
-
                 <label >
                     <span className=" font-medium flex items-center gap-2"><FaUser /> Your Name</span>
                     <input type="text" value={user?.displayName} disabled className="input input-bordered" />
                 </label>
-
                 <label >
                     <span className=" font-medium flex items-center gap-2"><FaEnvelope /> Your Email</span>
                     <input type="email" value={user?.email} disabled className="input input-bordered" />
                 </label>
-
                 <label >
                     <span className=" font-medium flex items-center gap-2"><FaUserCircle /> Your Photo</span>
                     <input type="text" value={user?.photoURL} disabled className="input input-bordered" />
                 </label>
-
                 <button type="submit" className="btn btn-primary mt-4 w-full text-white font-bold text-lg">
                     Add Service
                 </button>
