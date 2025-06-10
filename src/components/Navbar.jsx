@@ -2,15 +2,13 @@ import { use, useEffect, useState } from 'react';
 import { IoMenu } from 'react-icons/io5';
 import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../context/AuthContext';
+import { FaArrowDown } from "react-icons/fa";
 
 const Navbar = () => {
     const [isDark, setIsDark] = useState(false);
     const { user, logOut } = use(AuthContext);
 
-    const navLink = <>
-        <li><NavLink>Home</NavLink></li>
-        <li><NavLink>All Post</NavLink></li>
-    </>
+
 
     useEffect(() => {
         const savedTheme = localStorage.getItem("theme") || "light";
@@ -28,6 +26,24 @@ const Navbar = () => {
     const handleSignOut = () => {
         logOut().then().catch();
     };
+
+    const navLink = <>
+        <li><NavLink to='/'>Home</NavLink></li>
+        <li><NavLink to='/allPost'>All Post</NavLink></li>
+        {user &&
+            <li tabIndex={0}  className="dropdown dropdown-start">
+                <details >
+                    <summary tabIndex={0}>Dashboard</summary>
+                    <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-40 p-2 shadow-sm">
+                        <li><NavLink to="add-service">Add Service</NavLink></li>
+                        <li><NavLink to="">Manage Service</NavLink></li>
+                        <li><NavLink to="">Booked Services</NavLink></li>
+                        <li><NavLink to="">Service To-Do</NavLink></li>
+                    </ul>
+                </details>
+            </li>
+        }
+    </>
 
     return (
         <div className="navbar ">

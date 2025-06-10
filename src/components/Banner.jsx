@@ -1,171 +1,45 @@
 import { FaArrowRight } from "react-icons/fa";
-import banner01 from '../../src/assets/banner01.jpg'
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import { Typewriter } from "react-simple-typewriter";
+import banner01 from "../../src/assets/banner01.jpg";
+
 const Banner = () => {
-    return (
-        <div>
-            <Swiper
-                modules={[Navigation, Pagination, Autoplay]}
-                loop={true}
-                autoplay={{
-                    delay: 10000,
-                    disableOnInteraction: false,
-                }}
-                navigation
-                pagination={{ clickable: true }}
-                className="w-full max-w-7xl mx-auto"
-            >
-
-                {/* Slide 1 */}
-                <SwiperSlide>
-                    <div
-                className="w-full mt-5 rounded-2xl min-h-[40vh] bg-cover bg-center flex items-center"
-                style={{
-                    backgroundImage: `url(${banner01})`,
-                }}
-            >
-                <div className="w-full md:w-1/2 px-6 md:px-16">
-                    <h1
-                        data-aos="fade-right"
-                        className=" text-3xl md:text-5xl font-bold leading-tight"
-                    >
-                        THE <span className="text-yellow-400">WORLD’S</span> <br />
-                        <span className="text-yellow-400">#1 ONLINE</span> <br />
-                        EDUCATION
-                    </h1>
-
-                    <p
-                        data-aos="fade-right"
-                        data-aos-delay="300"
-                        className=" mt-4"
-                    >
-                        Search over 200 individual encyclopedias and reference books from the world.
-                    </p>
-
-                    <button
-                        data-aos="fade-up"
-                        data-aos-delay="600"
-                        className="mt-6 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-full flex items-center gap-2"
-                    >
-                        Explore Courses <FaArrowRight />
-                    </button>
-                </div>
-            </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div
-                className="w-full mt-5 rounded-2xl min-h-[40vh] bg-cover bg-center flex items-center"
-                style={{
-                    backgroundImage: `url(${banner01})`,
-                }}
-            >
-                <div className="w-full md:w-1/2 px-6 md:px-16">
-                    <h1
-                        data-aos="fade-right"
-                        className=" text-3xl md:text-5xl font-bold leading-tight"
-                    >
-                        THE <span className="text-yellow-400">WORLD’S</span> <br />
-                        <span className="text-yellow-400">#1 ONLINE</span> <br />
-                        EDUCATION
-                    </h1>
-
-                    <p
-                        data-aos="fade-right"
-                        data-aos-delay="300"
-                        className=" mt-4"
-                    >
-                        Search over 200 individual encyclopedias and reference books from the world.
-                    </p>
-
-                    <button
-                        data-aos="fade-up"
-                        data-aos-delay="600"
-                        className="mt-6 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-full flex items-center gap-2"
-                    >
-                        Explore Courses <FaArrowRight />
-                    </button>
-                </div>
-            </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div
-                className="w-full mt-5 rounded-2xl min-h-[40vh] bg-cover bg-center flex items-center"
-                style={{
-                    backgroundImage: `url(${banner01})`,
-                }}
-            >
-                <div className="w-full md:w-1/2 px-6 md:px-16">
-                    <h1
-                        data-aos="fade-right"
-                        className=" text-3xl md:text-5xl font-bold leading-tight"
-                    >
-                        THE <span className="text-yellow-400">WORLD’S</span> <br />
-                        <span className="text-yellow-400">#1 ONLINE</span> <br />
-                        EDUCATION
-                    </h1>
-
-                    <p
-                        data-aos="fade-right"
-                        data-aos-delay="300"
-                        className=" mt-4"
-                    >
-                        Search over 200 individual encyclopedias and reference books from the world.
-                    </p>
-
-                    <button
-                        data-aos="fade-up"
-                        data-aos-delay="600"
-                        className="mt-6 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-full flex items-center gap-2"
-                    >
-                        Explore Courses <FaArrowRight />
-                    </button>
-                </div>
-            </div>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <div
-                className="w-full mt-5 rounded-2xl min-h-[40vh] bg-cover bg-center flex items-center"
-                style={{
-                    backgroundImage: `url(${banner01})`,
-                }}
-            >
-                <div className="w-full md:w-1/2 px-6 md:px-16">
-                    <h1
-                        data-aos="fade-right"
-                        className=" text-3xl md:text-5xl font-bold leading-tight"
-                    >
-                        THE <span className="text-yellow-400">WORLD’S</span> <br />
-                        <span className="text-yellow-400">#1 ONLINE</span> <br />
-                        EDUCATION
-                    </h1>
-
-                    <p
-                        data-aos="fade-right"
-                        data-aos-delay="300"
-                        className=" mt-4"
-                    >
-                        Search over 200 individual encyclopedias and reference books from the world.
-                    </p>
-
-                    <button
-                        data-aos="fade-up"
-                        data-aos-delay="600"
-                        className="mt-6 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-full flex items-center gap-2"
-                    >
-                        Explore Courses <FaArrowRight />
-                    </button>
-                </div>
-            </div>
-                </SwiperSlide>
-
-            </Swiper>
-            
-        </div>
-    );
+  return (
+    <div
+      className="w-full min-h-[90vh]  bg-cover bg-center flex items-center text-white px-6"
+      style={{
+        backgroundImage: `url(${banner01})`,
+      }}
+    >
+      <div data-aos="fade-up" className="p-8 ">
+        <h1 data-aos="fade-right" className="text-3xl md:text-5xl font-bold mb-4 ">
+          <span className="text-green-200 ">Welcome to</span> <br />
+          The World’s Best{" "}
+          <span className="text-green-900 block min-h-[60px]">
+            <Typewriter
+              words={[
+                "Learning Platform",
+                "Online Course Hub",
+                "Global Knowledge Base",
+                "Future Skills Academy",
+              ]}
+              loop={true}
+              cursor
+              cursorStyle="|"
+              typeSpeed={80}
+              deleteSpeed={50}
+              delaySpeed={2000}
+            />
+          </span>
+        </h1>
+        <p className="mt-2 text-lg"  data-aos="fade-left">
+          Learn from top instructors and gain real-world skills from anywhere in the world.
+        </p>
+        <button data-aos="zoom-in" className=" mt-6 px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-full flex items-center gap-2 mx-auto">
+          Explore More <FaArrowRight />
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default Banner;

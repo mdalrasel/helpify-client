@@ -1,0 +1,104 @@
+import React, { use, useState } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import { FaAlignLeft, FaDollarSign, FaEnvelope, FaImage, FaMapMarkerAlt, FaTag, FaUser, FaUserCircle } from 'react-icons/fa';
+
+const AddService = () => {
+    const { user } = use(AuthContext)
+    const [description, setDescription] = useState("");
+    const maxChars = 100;
+
+    const handleAddService = async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const image = form.image.value;
+        const name = form.name.value;
+        const price = form.price.value;
+        const area = form.area.value;
+        const description = form.description.value;
+
+        const newService = {
+            image,
+            name,
+            price: parseFloat(price),
+            area,
+            description,
+            providerName: user.displayName,
+            providerEmail: user.email,
+            providerPhoto: user.photoURL,
+        };
+        console.log(newService)
+    }
+
+    return (
+        <div className=" p-8 rounded-2xl shadow-lg my-10">
+            <h2 className="text-3xl font-bold text-center mb-8 text-primary">Add a New Service</h2>
+            <form onSubmit={handleAddService} className="grid grid-cols-1 gap-5">
+
+                <label >
+                    <span className=" font-medium flex items-center gap-2"><FaImage /> Image URL</span>
+                    <input type="text" name="image" placeholder="https://..." className="input input-bordered w-full" required />
+                </label>
+
+                <label >
+                    <span className=" font-medium flex items-center gap-2"><FaTag /> Service Name</span>
+                    <input type="text" name="name" placeholder="Service Name" className="input input-bordered w-full" required />
+                </label>
+
+                <label >
+                    <span className=" font-medium flex items-center gap-2"><FaDollarSign /> Price</span>
+                    <input type="number" name="price" placeholder="100" className="input input-bordered w-full" required />
+                </label>
+
+                <label >
+                    <span className=" font-medium flex items-center gap-2"><FaMapMarkerAlt /> Service Area</span>
+                    <input type="text" name="area" placeholder="Dhaka, Chittagong..." className="input input-bordered w-full" required />
+                </label>
+
+                <label className="form-control">
+                    <span className="label-text flex items-center gap-2 "><FaAlignLeft /> Description</span>
+                    <textarea
+                        name="description"
+                        value={description}
+                        onChange={(e) => {
+                            if (e.target.value.length <= maxChars) {
+                                setDescription(e.target.value);
+                            }
+                        }}
+                        className="textarea textarea-bordered w-full"
+                        placeholder="Write about the service..."
+                        required
+                    />
+                    <div className="text-sm mt-1 flex justify-between">
+                        <span className={description.length === maxChars ? "text-red-600 font-medium" : "text-gray-500"}>
+                            {description.length}/{maxChars} characters
+                        </span>
+                        {description.length === maxChars && (
+                            <span className="text-red-600 font-medium">Maximum limit reached</span>
+                        )}
+                    </div>
+                </label>
+
+                <label >
+                    <span className=" font-medium flex items-center gap-2"><FaUser /> Your Name</span>
+                    <input type="text" value={user?.displayName} disabled className="input input-bordered" />
+                </label>
+
+                <label >
+                    <span className=" font-medium flex items-center gap-2"><FaEnvelope /> Your Email</span>
+                    <input type="email" value={user?.email} disabled className="input input-bordered" />
+                </label>
+
+                <label >
+                    <span className=" font-medium flex items-center gap-2"><FaUserCircle /> Your Photo</span>
+                    <input type="text" value={user?.photoURL} disabled className="input input-bordered" />
+                </label>
+
+                <button type="submit" className="btn btn-primary mt-4 w-full text-white font-bold text-lg">
+                    Add Service
+                </button>
+            </form>
+        </div>
+    );
+};
+
+export default AddService;
