@@ -1,6 +1,8 @@
 import React, { use, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { FaAlignLeft, FaDollarSign, FaEnvelope, FaImage, FaMapMarkerAlt, FaTag, FaUser, FaUserCircle } from 'react-icons/fa';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const AddService = () => {
     const { user } = use(AuthContext)
@@ -27,6 +29,27 @@ const AddService = () => {
             providerPhoto: user.photoURL,
         };
         console.log(newService)
+
+        axios.post('http://localhost:5000/services', newService)
+            .then(res => {
+                if (res.data.insertedId || res.data.acknowledged) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Service Added',
+                        text: 'Your service has been added successfully!',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                    form.reset();
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Failed to Add',
+                    text: error.message || 'Something went wrong!',
+                });
+            });
     }
 
     return (
