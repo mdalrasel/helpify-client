@@ -12,14 +12,13 @@ const BookServiceModal = ({ service, onClose }) => {
 
     const userPhoto = user?.photoURL 
     const providerPhoto = service.providerPhoto 
-
     const providerEmail = service.providerEmail;
     const providerName = service.providerName;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!user || !user.email || !user.displayName) {
+        if (!user  ) {
             Swal.fire({
                 icon: 'error',
                 title: 'Authentication Error',
@@ -89,11 +88,7 @@ const BookServiceModal = ({ service, onClose }) => {
 
     return (
         <div className="fixed inset-0 bg-black flex items-center justify-center z-50 p-4">
-            <div
-                className="bg-white p-8 rounded-lg shadow-xl w-full max-w-4xl relative my-8 overflow-y-auto max-h-[90vh]" 
-                data-aos="zoom-in-up"
-                data-aos-duration="700"
-            >
+            <div  className="bg-white p-8 rounded-lg shadow-xl w-full max-w-4xl relative my-8 overflow-y-auto max-h-[90vh]">
                 <button
                     onClick={onClose}
                     className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-3xl font-bold transition-transform transform hover:rotate-90"
@@ -103,7 +98,7 @@ const BookServiceModal = ({ service, onClose }) => {
                 <h2 className="text-3xl font-bold text-center text-blue-600 mb-8">Book Service: {service.name}</h2>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="bg-gray-50 p-6 rounded-lg shadow-inner" data-aos="fade-right">
+                    <div className="bg-gray-50 p-6 rounded-lg shadow-inner" >
                         <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2"><FaTag /> Service Details</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="md:col-span-2 mb-4"> 
@@ -126,7 +121,7 @@ const BookServiceModal = ({ service, onClose }) => {
                         </div>
                     </div>
 
-                    <div className="bg-white p-6 rounded-lg shadow-md" data-aos="fade-left">
+                    <div className="bg-white p-6 rounded-lg shadow-md" >
                         <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2"><FaCalendarAlt /> Booking Specifics</h3>
                         <div className="grid grid-cols-1 gap-4">
                             <div>
@@ -158,7 +153,7 @@ const BookServiceModal = ({ service, onClose }) => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6"> 
-                        <div className="bg-gray-50 p-6 rounded-lg shadow-inner" data-aos="fade-right">
+                        <div className="bg-gray-50 p-6 rounded-lg shadow-inner" >
                             <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2"><FaUserCircle /> Provider Info</h3>
                             <div className="space-y-4"> 
                                 <div className="flex items-center gap-3">
@@ -175,7 +170,7 @@ const BookServiceModal = ({ service, onClose }) => {
                             </div>
                         </div>
 
-                        <div className="bg-white p-6 rounded-lg shadow-md" data-aos="fade-left">
+                        <div className="bg-white p-6 rounded-lg shadow-md" >
                             <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2"><FaUserCircle /> Your Info</h3>
                             <div className="space-y-4">
                                 <div className="flex items-center gap-3">

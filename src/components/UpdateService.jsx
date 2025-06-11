@@ -41,7 +41,7 @@ const UpdateService = () => {
             description: form.description.value,
         };
 
-        axios.put(`http://localhost:5000/services/${id}`, updatedServiceData)
+        axios.put(`http://localhost:5000/update/${id}`, updatedServiceData)
             .then(response => {
                 if (response.data.modifiedCount > 0) {
                     Swal.fire({

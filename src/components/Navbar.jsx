@@ -2,7 +2,6 @@ import { use, useEffect, useState } from 'react';
 import { IoMenu } from 'react-icons/io5';
 import { Link, NavLink } from 'react-router';
 import { AuthContext } from '../context/AuthContext';
-import { FaArrowDown } from "react-icons/fa";
 
 const Navbar = () => {
     const [isDark, setIsDark] = useState(false);
@@ -37,8 +36,8 @@ const Navbar = () => {
                     <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-40 p-2 shadow-sm">
                         <li><NavLink to="add-service">Add Service</NavLink></li>
                         <li><NavLink to="manage-services">Manage Service</NavLink></li>
-                        <li><NavLink to="">Booked Services</NavLink></li>
-                        <li><NavLink to="">Service To-Do</NavLink></li>
+                        <li><NavLink to="booked-services">Booked Services</NavLink></li>
+                        <li><NavLink to="/service-to-do">Service To-Do</NavLink></li>
                     </ul>
                 </details>
             </li>

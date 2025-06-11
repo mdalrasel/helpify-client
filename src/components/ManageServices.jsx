@@ -44,7 +44,7 @@ const ManageServices = () => {
         })
             .then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete(`http://localhost:5000/services/${id}`)
+                    axios.delete(`http://localhost:5000/delete/${id}`)
                         .then(response => {
                             if (response.data.deletedCount > 0) {
                                 Swal.fire(
