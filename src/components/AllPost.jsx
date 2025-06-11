@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router';
 
 const AllPost = () => {
     const [services, setServices] = useState([]);
@@ -87,6 +88,9 @@ const AllPost = () => {
                                                 </div>
                                                 <span className="text-base font-semibold text-green-600">${service.price}</span>
                                             </div>
+                                            <Link to={`/details/${service._id}`}>
+                                                <button className="btn btn-sm btn-outline btn-primary mt-3">View Details</button>
+                                            </Link>
                                         </div>
                                     </div>
                                 ))}

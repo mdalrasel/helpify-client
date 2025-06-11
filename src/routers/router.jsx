@@ -8,6 +8,8 @@ import AllPost from "../components/AllPost";
 import Deshboard from "../components/Deshboard";
 import AddService from "../pages/service/AddService";
 import Details from "../components/Details";
+import ManageServices from "../components/ManageServices";
+import PrivateRoute from "./PrivateRoute";
 
 
 export const router = createBrowserRouter([
@@ -35,11 +37,15 @@ export const router = createBrowserRouter([
       },
       {
         path:'add-service',
-        Component:AddService
+        element: <PrivateRoute><AddService /></PrivateRoute>
       },
       {
         path:'/details/:id',
         Component:Details
+      },
+      {
+        path:'/manage-services',
+        element: <PrivateRoute><ManageServices /></PrivateRoute>
       }
     ]
   },

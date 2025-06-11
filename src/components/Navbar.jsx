@@ -36,7 +36,7 @@ const Navbar = () => {
                     <summary tabIndex={0}>Dashboard</summary>
                     <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-40 p-2 shadow-sm">
                         <li><NavLink to="add-service">Add Service</NavLink></li>
-                        <li><NavLink to="">Manage Service</NavLink></li>
+                        <li><NavLink to="manage-services">Manage Service</NavLink></li>
                         <li><NavLink to="">Booked Services</NavLink></li>
                         <li><NavLink to="">Service To-Do</NavLink></li>
                     </ul>
