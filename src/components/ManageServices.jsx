@@ -32,7 +32,7 @@ const ManageServices = () => {
             });
     }, [user, loading]);
 
-    const handleDelete = async (id) => {
+    const handleDelete = (id) => {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -41,34 +41,36 @@ const ManageServices = () => {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                try {
-                    const response = await axios.delete(`http://localhost:5000/services/${id}`);
-                    if (response.data.deletedCount > 0) {
-                        Swal.fire(
-                            'Deleted!',
-                            'Your service has been deleted.',
-                            'success'
-                        );
-                        setMyServices(myServices.filter(service => service._id !== id));
-                    } else {
-                        Swal.fire(
-                            'Failed!',
-                            'Could not delete the service. Please try again.',
-                            'error'
-                        );
-                    }
-                } catch (error) {
-                    console.error('Error deleting service:', error);
-                    Swal.fire(
-                        'Error!',
-                        'An error occurred while deleting the service.',
-                        'error'
-                    );
+        })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    axios.delete(`http://localhost:5000/services/${id}`)
+                        .then(response => {
+                            if (response.data.deletedCount > 0) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your service has been deleted.',
+                                    'success'
+                                );
+                                setMyServices(myServices.filter(service => service._id !== id));
+                            } else {
+                                Swal.fire(
+                                    'Failed!',
+                                    'Could not delete the service. Please try again.',
+                                    'error'
+                                );
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error deleting service:', error);
+                            Swal.fire(
+                                'Error!',
+                                'An error occurred while deleting the service.',
+                                'error'
+                            );
+                        });
                 }
-            }
-        });
+            });
     };
 
     const handleEdit = (id) => {

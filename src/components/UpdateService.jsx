@@ -1,43 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import  { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 
-// এখানে আপনার ফর্ম আইকনগুলো ইম্পোর্ট করতে পারেন, যেমন AddService-এ করেছেন
-import { FaTag, FaDollarSign, FaMapMarkerAlt, FaAlignLeft, FaImage } from 'react-icons/fa';
+import { FaTag, FaDollarSign, FaMapMarkerAlt, FaAlignLeft, FaImage, FaUserCircle, FaEnvelope } from 'react-icons/fa';
 
 const UpdateService = () => {
-    const { id } = useParams(); // URL থেকে সার্ভিস ID নিন
+    const { id } = useParams();
     const navigate = useNavigate();
     const [service, setService] = useState(null);
     const [description, setDescription] = useState("");
-    const maxChars = 100; // আপনার AddService এর মতো
+    const maxChars = 100;
 
     useEffect(() => {
-        AOS.init({ duration: 800, once: true });
-        AOS.refresh();
-
-        const fetchService = async () => {
-            try {
-                const response = await axios.get(`http://localhost:5000/details/${id}`);
-                setService(response.data);
-                setDescription(response.data.description); // ডিফল্ট ডেসক্রিপশন সেট করুন
-            } catch (error) {
+        axios.get(`http://localhost:5000/details/${id}`)
+            .then(res => {
+                setService(res.data);
+                setDescription(res.data.description);
+            })
+            .catch(error => {
                 console.error('Error fetching service for update:', error);
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: 'Failed to load service details for update!',
                 });
-                navigate('/manage-services'); // যদি ডেটা লোড না হয়, তাহলে ম্যানেজ পেজে ফেরত যান
-            }
-        };
-        fetchService();
+                navigate('/manage-services');
+            });
     }, [id, navigate]);
 
-    const handleUpdateService = async (e) => {
+    const handleUpdateService = (e) => {
         e.preventDefault();
         const form = e.target;
         const updatedServiceData = {
@@ -47,38 +39,37 @@ const UpdateService = () => {
             price: parseFloat(form.price.value),
             area: form.area.value,
             description: form.description.value,
-            // providerName, providerEmail, providerPhoto এগুলি আপডেট করার দরকার নেই,
-            // কারণ এগুলি সার্ভিস অ্যাড করার সময়ই সেট হয় এবং ইউজার আইডি-নির্ভর।
         };
 
-        try {
-            const response = await axios.put(`http://localhost:5000/services/${id}`, updatedServiceData);
-            if (response.data.modifiedCount > 0) {
+        axios.put(`http://localhost:5000/services/${id}`, updatedServiceData)
+            .then(response => {
+                if (response.data.modifiedCount > 0) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Service Updated!',
+                        text: 'Your service has been updated successfully!',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                    navigate('/manage-services');
+                } else {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'No Changes',
+                        text: 'No changes were made to the service.',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error updating service:', error);
                 Swal.fire({
-                    icon: 'success',
-                    title: 'Service Updated!',
-                    text: 'Your service has been updated successfully!',
-                    timer: 2000,
-                    showConfirmButton: false
+                    icon: 'error',
+                    title: 'Failed to Update',
+                    text: error.message || 'Something went wrong!',
                 });
-                navigate('/manage-services'); // আপডেটের পর ম্যানেজ পেজে ফেরত যান
-            } else {
-                Swal.fire({
-                    icon: 'info',
-                    title: 'No Changes',
-                    text: 'No changes were made to the service.',
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-            }
-        } catch (error) {
-            console.error('Error updating service:', error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Failed to Update',
-                text: error.message || 'Something went wrong!',
             });
-        }
     };
 
     if (!service) {
@@ -86,15 +77,14 @@ const UpdateService = () => {
     }
 
     return (
-        <div className="max-w-3xl mx-auto p-8 rounded-2xl shadow-lg my-10" data-aos="fade-up">
+        <div className=" p-8 rounded-2xl shadow-2xl my-10" >
             <h2 className="text-3xl font-bold text-center mb-8 text-blue-600">Update Service: {service.name}</h2>
             <form onSubmit={handleUpdateService} className="grid grid-cols-1 gap-5">
-                {/* Service Name */}
+
                 <label>
                     <span className="font-medium flex items-center gap-2"><FaTag /> Service Name</span>
                     <input type="text" name="name" defaultValue={service.name} placeholder="Service Name" className="input input-bordered w-full" required />
                 </label>
-                {/* Category - আপনি যদি ডায়নামিক ক্যাটাগরি আনেন তাহলে এখানে ম্যাপ করতে পারেন */}
                 <div className="w-full">
                     <label className="label">
                         <span className="font-medium flex items-center gap-2 mb-1"><FaTag />Select Category</span>
@@ -112,22 +102,18 @@ const UpdateService = () => {
                         <option value="Academic Support">Academic Support</option>
                     </select>
                 </div>
-                {/* Price */}
                 <label>
                     <span className="font-medium flex items-center gap-2"><FaDollarSign /> Price</span>
                     <input type="number" name="price" defaultValue={service.price} placeholder="100" className="input input-bordered w-full" required />
                 </label>
-                {/* Image URL */}
                 <label>
                     <span className="font-medium flex items-center gap-2"><FaImage /> Image URL</span>
                     <input type="text" name="image" defaultValue={service.image} placeholder="https://..." className="input input-bordered w-full" required />
                 </label>
-                {/* Service Area */}
                 <label>
                     <span className="font-medium flex items-center gap-2"><FaMapMarkerAlt /> Service Area</span>
                     <input type="text" name="area" defaultValue={service.area} placeholder="Dhaka, Chittagong..." className="input input-bordered w-full" required />
                 </label>
-                {/* Description */}
                 <label className="form-control">
                     <span className="label-text flex items-center gap-2 "><FaAlignLeft /> Description</span>
                     <textarea
@@ -151,7 +137,6 @@ const UpdateService = () => {
                         )}
                     </div>
                 </label>
-                {/* Provider Info (disabled) - Display only, not editable */}
                 <label>
                     <span className="font-medium flex items-center gap-2"><FaUserCircle /> Provider Name</span>
                     <input type="text" value={service.providerName} disabled className="input input-bordered bg-gray-100" />
