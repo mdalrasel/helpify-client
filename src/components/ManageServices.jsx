@@ -15,6 +15,7 @@ const ManageServices = () => {
             setDataLoading(false);
             return;
         }
+        console.log('user',user.email)
 
         axios.get(`http://localhost:5000/my-services?email=${user.email}`)
             .then(response => {

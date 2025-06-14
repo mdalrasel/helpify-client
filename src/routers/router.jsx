@@ -5,7 +5,6 @@ import SignIn from "../pages/authentication/SignIn";
 import Register from "../pages/authentication/Register";
 import ErrorPage from "../pages/errorPage/ErrorPage";
 import AllPost from "../components/AllPost";
-import Deshboard from "../components/Deshboard";
 import AddService from "../pages/service/AddService";
 import Details from "../components/Details";
 import ManageServices from "../components/ManageServices";
