@@ -1,12 +1,39 @@
-# React + Vite
+# Helpify
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Helpify is a modern service-sharing web application where users can find, offer, and book various types of services with ease. It's designed to provide a seamless and intuitive experience for service management, booking, and real-time status updates.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Key Features:
 
-## Expanding the ESLint configuration
+* **Secure User Authentication:** Enjoy a robust and straightforward authentication system supporting both email/password and Google sign-in/registration, ensuring your data is safe.
+* **Comprehensive Service Management:** As a service provider, you have full control to add, update, and delete your own services effortlessly.
+* **Intuitive Service Browsing & Booking:** Explore a wide array of available services, view detailed information, and book your desired service with just a few clicks.
+* **Personalized User Dashboard:** A dedicated dashboard for logged-in users to efficiently track their personal services, booked services, and monitor the status of services they provide to others.
+* **Fully Responsive Design:** Access Helpify anytime, anywhere, on any device. Our design ensures an optimal viewing and interaction experience across mobile, tablet, and desktop screens.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+### Selected Service Category:
+
+Our application focuses on **Educational Services**, aiming to connect learners with tutors and skill development opportunities.
+
+---
+
+### Technology Stack:
+
+* **Frontend:** React.js, Tailwind CSS, Axios, React Router DOM, AOS (Animate On Scroll)
+* **Backend:** Node.js, Express.js
+* **Database:** MongoDB
+* **Authentication:** Firebase Authentication, JWT (JSON Web Tokens)
+* **Deployment:** Vercel (Client & Server)
+
+---
+
+### Live Application Link:
+
+* **Experience Helpify Live:** https://helpify1.netlify.app/ ,
+
+---
+
+We hope you enjoy exploring Helpify!

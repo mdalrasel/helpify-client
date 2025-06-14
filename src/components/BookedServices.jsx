@@ -1,22 +1,23 @@
 import React, { useEffect, useState, use } from 'react';
-import axios from 'axios';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../context/AuthContext';
 import { Link } from 'react-router';
+import useAxiosSecure from '../hooks/useAxiosSecure';
 
 const BookedServices = () => {
     const { user, loading } = use(AuthContext);
     const [bookedServices, setBookedServices] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
-        if (!user || loading) {
+        if (!user?.email) {
             setDataLoading(false);
             return;
         }
 
         setDataLoading(true);
-        axios.get(`http://localhost:5000/my-booked-services?email=${user.email}`)
+        axiosSecure.get(`/my-booked-services?email=${user.email}`)
             .then(response => {
                 setBookedServices(response.data);
                 setDataLoading(false);
@@ -28,16 +29,24 @@ const BookedServices = () => {
                     title: 'Oops...',
                     text: 'Failed to load your booked services. Please try again later!',
                 });
-                setDataLoading(false); 
+                setDataLoading(false);
             });
-    }, [user, loading]);
+    }, [user, loading, axiosSecure]);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <span className="loading loading-spinner loading-lg text-primary"></span>
+            </div>
+        );
+    }
 
     if (dataLoading) {
         return <div className="text-center py-20 text-xl text-gray-700">Loading your booked services...</div>;
     }
 
     return (
-         <div className="max-w-6xl mx-auto px-4 py-10" >
+        <div className="max-w-6xl mx-auto px-4 py-10" >
             <h2 className="text-3xl sm:text-4xl font-bold text-center text-blue-700 mb-8 sm:mb-10">Your Booked Services</h2>
 
             {bookedServices.length === 0 ? (
@@ -73,7 +82,7 @@ const BookedServices = () => {
                                     <td className="py-3 px-3 sm:py-4 sm:px-4 text-xs sm:text-sm text-gray-800 font-semibold">
                                         <div className="flex items-center">
                                             <img src={booking.serviceImage} alt={booking.serviceName} className="w-8 h-8 sm:w-10 sm:h-10 object-cover rounded-md mr-1 sm:mr-2" />
-                                            <span className="truncate max-w-[80px] sm:max-w-none">{booking.serviceName}</span> 
+                                            <span className="truncate max-w-[80px] sm:max-w-none">{booking.serviceName}</span>
                                         </div>
                                     </td>
                                     <td className="py-3 px-3 sm:py-4 sm:px-4 text-xs sm:text-sm text-gray-600 truncate max-w-[100px] sm:max-w-none">
@@ -89,7 +98,7 @@ const BookedServices = () => {
                                                 ${booking.serviceStatus === 'working' ? 'bg-blue-500' : ''}
                                                 ${booking.serviceStatus === 'completed' ? 'bg-green-500' : ''}
                                                 opacity-90 cursor-not-allowed`}
-                                            disabled 
+                                            disabled
                                         >
                                             {booking.serviceStatus.charAt(0).toUpperCase() + booking.serviceStatus.slice(1)}
                                         </button>

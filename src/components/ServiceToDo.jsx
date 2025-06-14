@@ -1,41 +1,42 @@
-import  { useEffect, useState, use } from 'react';
-import axios from 'axios';
+import { useEffect, useState, use } from 'react';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../context/AuthContext';
+import useAxiosSecure from '../hooks/useAxiosSecure';
 
 const ServiceToDo = () => {
     const { user, loading } = use(AuthContext);
     const [providerBookings, setProviderBookings] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
-
-    const fetchProviderBookings = () => {
-        if (!user || loading) {
-            setDataLoading(false);
-            return;
-        }
-
-        setDataLoading(true);
-        axios.get(`http://localhost:5000/my-provider-bookings?email=${user.email}`)
-            .then(response => {
-                setProviderBookings(response.data);
-                setDataLoading(false);
-            })
-            .catch(error => {
-                console.error('Error fetching provider bookings:', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Failed to load your service to-do list. Please try again later!',
-                });
-                setDataLoading(false);
-            });
-    };
-
+    const axiosSecure = useAxiosSecure();
     useEffect(() => {
-        fetchProviderBookings(); 
-    }, [user, loading]);
+        const fetchProviderBookings = () => {
+            if (!user?.email) {
+                setDataLoading(false);
+                return;
+            }
 
-   
+            setDataLoading(true);
+            axiosSecure.get(`/my-provider-bookings?email=${user.email}`)
+                .then(response => {
+                    setProviderBookings(response.data);
+                    setDataLoading(false);
+                })
+                .catch(error => {
+                    console.error('Error fetching provider bookings:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Failed to load your service to-do list. Please try again later!',
+                    });
+                    setDataLoading(false);
+                });
+        };
+
+
+        fetchProviderBookings();
+    }, [user, loading, axiosSecure]);
+
+
     const handleStatusChange = (bookingId, newStatus) => {
         Swal.fire({
             title: 'Confirm Status Change?',
@@ -47,7 +48,7 @@ const ServiceToDo = () => {
             confirmButtonText: 'Yes, update it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.patch(`http://localhost:5000/bookings/${bookingId}/status`, { status: newStatus })
+                axiosSecure.patch(`/bookings/${bookingId}/status`, { status: newStatus })
                     .then(response => {
                         if (response.data.message === 'Booking status updated successfully!') {
                             Swal.fire(
@@ -55,7 +56,7 @@ const ServiceToDo = () => {
                                 `Status changed to ${newStatus}.`,
                                 'success'
                             );
-                            fetchProviderBookings();
+                            // fetchProviderBookings();
                         } else {
                             Swal.fire(
                                 'Failed!',

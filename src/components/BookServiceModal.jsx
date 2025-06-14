@@ -1,28 +1,53 @@
-import  { useState,  use } from 'react';
+import { useState, useEffect, use } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-
-import { FaCalendarAlt, FaInfoCircle, FaDollarSign, FaUserCircle, FaEnvelope,  FaTag } from 'react-icons/fa';
+import { FaCalendarAlt, FaInfoCircle, FaDollarSign, FaUserCircle, FaEnvelope, FaTag } from 'react-icons/fa';
 import { AuthContext } from '../context/AuthContext';
 
 const BookServiceModal = ({ service, onClose }) => {
     const [serviceTakingDate, setServiceTakingDate] = useState('');
     const [specialInstruction, setSpecialInstruction] = useState('');
     const { user } = use(AuthContext);
+    const [isOwnPost, setIsOwnPost] = useState(false);
+    const userPhoto = user?.photoURL;
+    const providerPhoto = service?.providerPhoto;
+    const providerEmail = service?.providerEmail;
+    const providerName = service?.providerName;
 
-    const userPhoto = user?.photoURL 
-    const providerPhoto = service.providerPhoto 
-    const providerEmail = service.providerEmail;
-    const providerName = service.providerName;
+    useEffect(() => {
+        if (!user || !service) {
+            setIsOwnPost(false);
+            return;
+        }
+
+        if (user.email === service.providerEmail) {
+            setIsOwnPost(true);
+        } else {
+            setIsOwnPost(false);
+        }
+
+
+    }, [user, service]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!user  ) {
+        if (!user) {
             Swal.fire({
                 icon: 'error',
                 title: 'Authentication Error',
                 text: 'User information is missing. Please log in again.',
+                timer: 3000,
+                showConfirmButton: false
+            });
+            return;
+        }
+
+        if (isOwnPost) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Not Allowed',
+                text: 'You cannot book your own service.',
                 timer: 3000,
                 showConfirmButton: false
             });
@@ -55,7 +80,7 @@ const BookServiceModal = ({ service, onClose }) => {
         };
 
         try {
-            const response = await axios.post('http://localhost:5000/bookings', bookingData);
+            const response = await axios.post('https://helpify-server.vercel.app/bookings', bookingData);
             if (response.data.insertedId) {
                 Swal.fire({
                     icon: 'success',
@@ -87,8 +112,8 @@ const BookServiceModal = ({ service, onClose }) => {
     };
 
     return (
-        <div className="fixed inset-0 bg-black flex items-center justify-center z-50 p-4">
-            <div  className="bg-white p-8 rounded-lg shadow-xl w-full max-w-4xl relative my-8 overflow-y-auto max-h-[90vh]">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-4xl relative my-8 overflow-y-auto max-h-[90vh]">
                 <button
                     onClick={onClose}
                     className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-3xl font-bold transition-transform transform hover:rotate-90"
@@ -98,12 +123,14 @@ const BookServiceModal = ({ service, onClose }) => {
                 <h2 className="text-3xl font-bold text-center text-blue-600 mb-8">Book Service: {service.name}</h2>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="bg-gray-50 p-6 rounded-lg shadow-inner" >
-                        <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2"><FaTag /> Service Details</h3>
+                    <div className="bg-gray-50 p-6 rounded-lg shadow-inner">
+                        <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                            <FaTag /> Service Details
+                        </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div className="md:col-span-2 mb-4"> 
+                            <div className="md:col-span-2 mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2">Service Image:</label>
-                                <img src={service.image} alt={service.name} className="w-full h-48 object-cover rounded-md border border-gray-300" />
+                                <img src={service.image} alt={service.name} className="w-full h-full object-cover rounded-md border border-gray-300" />
                                 <input type="hidden" value={service.image} name="serviceImage" />
                             </div>
                             <div>
@@ -114,15 +141,19 @@ const BookServiceModal = ({ service, onClose }) => {
                                 <label className="block text-gray-700 text-sm font-bold mb-2">Service Name:</label>
                                 <input type="text" className="form-input" value={service.name} readOnly />
                             </div>
-                            <div className="md:col-span-2"> 
-                                <label className=" text-gray-700 text-sm font-bold mb-2 flex items-center gap-1"><FaDollarSign /> Price:</label>
+                            <div className="md:col-span-2">
+                                <label className=" text-gray-700 text-sm font-bold mb-2 flex items-center gap-1">
+                                    <FaDollarSign /> Price:
+                                </label>
                                 <input type="text" className="form-input text-green-700 font-semibold" value={`${service.price}`} readOnly />
                             </div>
                         </div>
                     </div>
 
-                    <div className="bg-white p-6 rounded-lg shadow-md" >
-                        <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2"><FaCalendarAlt /> Booking Specifics</h3>
+                    <div className="bg-white p-6 rounded-lg shadow-md">
+                        <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                            <FaCalendarAlt /> Booking Specifics
+                        </h3>
                         <div className="grid grid-cols-1 gap-4">
                             <div>
                                 <label htmlFor="serviceTakingDate" className=" text-gray-700 text-sm font-bold mb-2 flex items-center gap-1">
@@ -146,16 +177,19 @@ const BookServiceModal = ({ service, onClose }) => {
                                     className="w-full form-textarea h-24"
                                     value={specialInstruction}
                                     onChange={(e) => setSpecialInstruction(e.target.value)}
+                                    required
                                     placeholder="e.g., your address, specific requirements, preferred time..."
                                 ></textarea>
                             </div>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6"> 
-                        <div className="bg-gray-50 p-6 rounded-lg shadow-inner" >
-                            <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2"><FaUserCircle /> Provider Info</h3>
-                            <div className="space-y-4"> 
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="bg-gray-50 p-6 rounded-lg shadow-inner">
+                            <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                                <FaUserCircle /> Provider Info
+                            </h3>
+                            <div className="space-y-4">
                                 <div className="flex items-center gap-3">
                                     <img src={providerPhoto} alt={providerName} className="w-12 h-12 rounded-full border-2 border-blue-400 object-cover" />
                                     <div className="flex-1">
@@ -164,14 +198,18 @@ const BookServiceModal = ({ service, onClose }) => {
                                     </div>
                                 </div>
                                 <div>
-                                    <label className=" text-gray-700 text-sm font-bold mb-1 flex items-center gap-1"><FaEnvelope /> Email:</label>
+                                    <label className=" text-gray-700 text-sm font-bold mb-1 flex items-center gap-1">
+                                        <FaEnvelope /> Email:
+                                    </label>
                                     <input type="email" className="form-input" value={providerEmail} readOnly />
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-white p-6 rounded-lg shadow-md" >
-                            <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2"><FaUserCircle /> Your Info</h3>
+                        <div className="bg-white p-6 rounded-lg shadow-md">
+                            <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                                <FaUserCircle /> Your Info
+                            </h3>
                             <div className="space-y-4">
                                 <div className="flex items-center gap-3">
                                     <img src={userPhoto} alt={user?.displayName || 'User'} className="w-12 h-12 rounded-full border-2 border-green-400 object-cover" />
@@ -181,15 +219,16 @@ const BookServiceModal = ({ service, onClose }) => {
                                     </div>
                                 </div>
                                 <div>
-                                    <label className=" text-gray-700 text-sm font-bold mb-1 flex items-center gap-1"><FaEnvelope /> Email:</label>
+                                    <label className=" text-gray-700 text-sm font-bold mb-1 flex items-center gap-1">
+                                        <FaEnvelope /> Email:
+                                    </label>
                                     <input type="email" className="form-input" value={user?.email || ''} readOnly />
                                 </div>
                             </div>
                         </div>
                     </div>
 
-
-                    <div className="flex justify-end gap-4 mt-8" >
+                    <div className="flex justify-end gap-4 mt-8">
                         <button
                             type="button"
                             onClick={onClose}
@@ -199,7 +238,17 @@ const BookServiceModal = ({ service, onClose }) => {
                         </button>
                         <button
                             type="submit"
-                            className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition duration-300 flex items-center gap-2"
+                            disabled={isOwnPost}
+                            title={
+                                isOwnPost
+                                    ? "You cannot book your own service."
+                                    : "Purchase"
+                            }
+                            className={`py-2 px-6 rounded-lg font-bold transition duration-300 flex items-center gap-2 
+                                ${isOwnPost
+                                    ? "bg-gray-400 text-gray-700 cursor-not-allowed"
+                                    : "bg-green-600 hover:bg-green-700 text-white"
+                                }`}
                         >
                             <FaDollarSign /> Purchase
                         </button>

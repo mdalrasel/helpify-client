@@ -32,7 +32,7 @@ const AddService = () => {
         };
         console.log(newService)
 
-        axios.post('http://localhost:5000/services', newService)
+        axios.post('https://helpify-server.vercel.app/services', newService)
             .then(res => {
                 if (res.data.insertedId || res.data.acknowledged) {
                     Swal.fire({

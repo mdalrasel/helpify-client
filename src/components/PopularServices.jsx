@@ -6,7 +6,7 @@ const PopularServices = () => {
     const [services, setServices] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/services')
+        axios.get('https://helpify-server.vercel.app/services')
             .then(res => {
                 const reversed = res.data.reverse(); 
                 const latestSix = reversed.slice(0, 6);
@@ -22,7 +22,7 @@ const PopularServices = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {services.map(service => (
                     <div key={service._id} className="card shadow-2xl  rounded-2xl p-4 flex gap-4">
-                        <img src={service.image} alt={service.name} className="w-40 h-40 object-cover rounded-xl" />
+                        <img src={service.image} alt={service.name} className="w-full h-50 object-cover rounded-xl" />
                         <div className="flex flex-col justify-between flex-1">
                             <div>
                                 <h3 className="text-xl font-bold text-primary">{service.name}</h3>
