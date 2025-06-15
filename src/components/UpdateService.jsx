@@ -1,21 +1,19 @@
-import  { use, useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router';
+import axios from 'axios';
 import Swal from 'sweetalert2';
+
 import { FaTag, FaDollarSign, FaMapMarkerAlt, FaAlignLeft, FaImage, FaUserCircle, FaEnvelope } from 'react-icons/fa';
-import useAxiosSecure from '../hooks/useAxiosSecure';
-import { AuthContext } from '../context/AuthContext';
 
 const UpdateService = () => {
-    const {loading}=use(AuthContext)
     const { id } = useParams();
     const navigate = useNavigate();
     const [service, setService] = useState(null);
     const [description, setDescription] = useState("");
     const maxChars = 100;
-    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
-        axiosSecure.get(`/details/${id}`)
+        axios.get(`https://helpify-server.vercel.app/details/${id}`)
             .then(res => {
                 setService(res.data);
                 setDescription(res.data.description);
@@ -29,7 +27,7 @@ const UpdateService = () => {
                 });
                 navigate('/manage-services');
             });
-    }, [id, navigate,axiosSecure]);
+    }, [id, navigate]);
 
     const handleUpdateService = (e) => {
         e.preventDefault();
@@ -43,7 +41,7 @@ const UpdateService = () => {
             description: form.description.value,
         };
 
-        axiosSecure.put(`/update/${id}`, updatedServiceData)
+        axios.put(`https://helpify-server.vercel.app/update/${id}`, updatedServiceData)
             .then(response => {
                 if (response.data.modifiedCount > 0) {
                     Swal.fire({
@@ -73,13 +71,7 @@ const UpdateService = () => {
                 });
             });
     };
-if (loading) {
-        return (
-            <div className="min-h-screen flex items-center justify-center">
-                <span className="loading loading-spinner loading-lg text-primary"></span>
-            </div>
-        );
-    }
+
     if (!service) {
         return <div className="text-center py-20 text-xl">Loading service details...</div>;
     }

@@ -1,23 +1,22 @@
 import { useEffect, useState, use } from 'react';
+import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Link, useNavigate } from 'react-router';
 import { AuthContext } from '../context/AuthContext';
-import useAxiosSecure from '../hooks/useAxiosSecure';
 
 const ManageServices = () => {
     const { user, loading } = use(AuthContext);
     const [myServices, setMyServices] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
     const navigate = useNavigate();
-    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
-         if (!user?.email) {
+        if (!user || loading) {
             setDataLoading(false);
             return;
         }
 
-        axiosSecure.get(`/my-services?email=${user.email}`)
+        axios.get(`https://helpify-server.vercel.app/my-services?email=${user.email}`)
             .then(response => {
                 setMyServices(response.data);
                 setDataLoading(false);
@@ -31,7 +30,7 @@ const ManageServices = () => {
                 });
                 setDataLoading(false);
             });
-    }, [user, loading,axiosSecure]);
+    }, [user, loading]);
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -45,7 +44,7 @@ const ManageServices = () => {
         })
             .then((result) => {
                 if (result.isConfirmed) {
-                    axiosSecure.delete(`/delete/${id}`)
+                    axios.delete(`https://helpify-server.vercel.app/delete/${id}`)
                         .then(response => {
                             if (response.data.deletedCount > 0) {
                                 Swal.fire(

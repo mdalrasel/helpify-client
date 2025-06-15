@@ -1,42 +1,41 @@
-import { useEffect, useState, use } from 'react';
+import  { useEffect, useState, use } from 'react';
+import axios from 'axios';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../context/AuthContext';
-import useAxiosSecure from '../hooks/useAxiosSecure';
 
 const ServiceToDo = () => {
     const { user, loading } = use(AuthContext);
     const [providerBookings, setProviderBookings] = useState([]);
     const [dataLoading, setDataLoading] = useState(true);
-    const axiosSecure = useAxiosSecure();
-    useEffect(() => {
-        const fetchProviderBookings = () => {
-            if (!user?.email) {
+
+    const fetchProviderBookings = () => {
+        if (!user || loading) {
+            setDataLoading(false);
+            return;
+        }
+
+        setDataLoading(true);
+        axios.get(`https://helpify-server.vercel.app/my-provider-bookings?email=${user.email}`)
+            .then(response => {
+                setProviderBookings(response.data);
                 setDataLoading(false);
-                return;
-            }
-
-            setDataLoading(true);
-            axiosSecure.get(`/my-provider-bookings?email=${user.email}`)
-                .then(response => {
-                    setProviderBookings(response.data);
-                    setDataLoading(false);
-                })
-                .catch(error => {
-                    console.error('Error fetching provider bookings:', error);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Failed to load your service to-do list. Please try again later!',
-                    });
-                    setDataLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching provider bookings:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Failed to load your service to-do list. Please try again later!',
                 });
-        };
+                setDataLoading(false);
+            });
+    };
 
+    useEffect(() => {
+        fetchProviderBookings(); 
+    }, [user, loading]);
 
-        fetchProviderBookings();
-    }, [user, loading, axiosSecure]);
-
-
+   
     const handleStatusChange = (bookingId, newStatus) => {
         Swal.fire({
             title: 'Confirm Status Change?',
@@ -48,7 +47,7 @@ const ServiceToDo = () => {
             confirmButtonText: 'Yes, update it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosSecure.patch(`/bookings/${bookingId}/status`, { status: newStatus })
+                axios.patch(`https://helpify-server.vercel.app/bookings/${bookingId}/status`, { status: newStatus })
                     .then(response => {
                         if (response.data.message === 'Booking status updated successfully!') {
                             Swal.fire(
@@ -56,7 +55,7 @@ const ServiceToDo = () => {
                                 `Status changed to ${newStatus}.`,
                                 'success'
                             );
-                            // fetchProviderBookings();
+                            fetchProviderBookings();
                         } else {
                             Swal.fire(
                                 'Failed!',

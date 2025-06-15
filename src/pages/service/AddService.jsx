@@ -30,7 +30,6 @@ const AddService = () => {
             providerEmail: user.email,
             providerPhoto: user.photoURL,
         };
-        console.log(newService)
 
         axios.post('https://helpify-server.vercel.app/services', newService)
             .then(res => {
@@ -43,6 +42,7 @@ const AddService = () => {
                         timer: 2000
                     });
                     form.reset();
+                    setDescription("");
                 }
             })
             .catch(error => {

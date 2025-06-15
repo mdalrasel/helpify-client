@@ -1,21 +1,17 @@
-
-import React, { use, useEffect, useRef, useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router'; 
-import useAxiosSecure from '../hooks/useAxiosSecure';
-import { AuthContext } from '../context/AuthContext';
 
 const AllPost = () => {
-    const {loading}=use(AuthContext)
     const [services, setServices] = useState([]);
     const [filteredServices, setFilteredServices] = useState([]);
     const [searchText, setSearchText] = useState("");
     const [categories, setCategories] = useState([]);
     const [activeCategory, setActiveCategory] = useState('');
     const categoryRefs = useRef({});
-    const axiosSecure = useAxiosSecure(); 
 
     useEffect(() => {
-        axiosSecure.get('/services')
+        axios.get('https://helpify-server.vercel.app/services')
             .then(res => {
                 setServices(res.data);
                 setFilteredServices(res.data);
@@ -24,7 +20,7 @@ const AllPost = () => {
                 setActiveCategory(uniqueCategories[0] || '');
             })
             .catch(err => console.error(err));
-    }, [axiosSecure]);
+    }, []);
 
     const handleSearch = (e) => {
         const text = e.target.value.toLowerCase();
@@ -58,14 +54,6 @@ const AllPost = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, [categories]);
-
-    if (loading) {
-        return (
-            <div className="min-h-screen flex items-center justify-center">
-                <span className="loading loading-spinner loading-lg text-primary"></span>
-            </div>
-        );
-    }
 
     return (
         <div className="px-4 md:px-10 pt-10">
