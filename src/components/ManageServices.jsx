@@ -10,13 +10,19 @@ const ManageServices = () => {
     const [dataLoading, setDataLoading] = useState(true);
     const navigate = useNavigate();
 
+    console.log('token',user.accessToken)
+
     useEffect(() => {
         if (!user || loading) {
             setDataLoading(false);
             return;
         }
 
-        axios.get(`https://helpify-server.vercel.app/my-services?email=${user.email}`)
+        axios.get(`https://helpify-server.vercel.app/my-services?email=${user.email}`,{
+            headers:{
+                Authorization:`Bearer ${user.accessToken}`
+            }
+        })
             .then(response => {
                 setMyServices(response.data);
                 setDataLoading(false);

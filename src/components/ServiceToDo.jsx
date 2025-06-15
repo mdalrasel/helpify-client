@@ -1,4 +1,4 @@
-import  { useEffect, useState, use } from 'react';
+import { useEffect, useState, use } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../context/AuthContext';
@@ -15,7 +15,11 @@ const ServiceToDo = () => {
         }
 
         setDataLoading(true);
-        axios.get(`https://helpify-server.vercel.app/my-provider-bookings?email=${user.email}`)
+        axios.get(`https://helpify-server.vercel.app/my-provider-bookings?email=${user.email}`, {
+            headers: {
+                Authorization: `Bearer ${user.accessToken}`
+            }
+        })
             .then(response => {
                 setProviderBookings(response.data);
                 setDataLoading(false);
@@ -32,10 +36,10 @@ const ServiceToDo = () => {
     };
 
     useEffect(() => {
-        fetchProviderBookings(); 
+        fetchProviderBookings();
     }, [user, loading]);
 
-   
+
     const handleStatusChange = (bookingId, newStatus) => {
         Swal.fire({
             title: 'Confirm Status Change?',

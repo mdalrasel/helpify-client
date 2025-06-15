@@ -16,7 +16,11 @@ const BookedServices = () => {
         }
 
         setDataLoading(true);
-        axios.get(`https://helpify-server.vercel.app/my-booked-services?email=${user.email}`)
+        axios.get(`https://helpify-server.vercel.app/my-booked-services?email=${user.email}`,{
+            headers:{
+                Authorization:`Bearer ${user.accessToken}`
+            }
+        })
             .then(response => {
                 setBookedServices(response.data);
                 setDataLoading(false);
