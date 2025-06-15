@@ -26,10 +26,11 @@ const AddService = () => {
             price: parseFloat(price),
             area,
             description,
-            providerName: user.displayName,
-            providerEmail: user.email,
-            providerPhoto: user.photoURL,
+            providerName: user?.displayName,
+            providerEmail:  user?.email || user?.providerData?.[0]?.email,
+            providerPhoto:  user?.photoURL,
         };
+        console.log('provider email',user?.email)
 
         axios.post('https://helpify-server.vercel.app/services', newService)
             .then(res => {

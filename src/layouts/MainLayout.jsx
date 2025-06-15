@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'; 
 import { Outlet, useLocation } from 'react-router'; 
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 const MainLayout = () => {
     const location = useLocation(); 
 
@@ -52,13 +53,13 @@ const MainLayout = () => {
     return (
         <div>
             <div className='shadow-2xl fixed top-0 left-0 z-50 bg-base-100 w-full'>
-                <div className='container mx-auto'><Navbar /></div> {/* Temporary Placeholder */}
+                <div className='container mx-auto'><Navbar /></div>
             </div>
             <main className='container mx-auto mt-16 min-h-[calc(100vh-285px)]'>
                 <Outlet /> 
             </main>
             <div className=''>
-                <p className="bg-gray-800 text-white p-4 text-center mt-8">Your Footer goes here</p> {/* Temporary Placeholder */}
+               <Footer />
             </div>
         </div>
     );
