@@ -80,7 +80,11 @@ const BookServiceModal = ({ service, onClose }) => {
         };
 
         try {
-            const response = await axios.post('https://helpify-server.vercel.app/bookings', bookingData);
+            const response = await axios.post('https://helpify-server.vercel.app/bookings', bookingData,{
+                 headers: {
+                Authorization: `Bearer ${user.accessToken}`
+            }
+            });
             if (response.data.insertedId) {
                 Swal.fire({
                     icon: 'success',

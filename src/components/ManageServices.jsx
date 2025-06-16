@@ -10,8 +10,6 @@ const ManageServices = () => {
     const [dataLoading, setDataLoading] = useState(true);
     const navigate = useNavigate();
 
-    console.log('token',user.accessToken)
-
     useEffect(() => {
         if (!user || loading) {
             setDataLoading(false);
@@ -50,7 +48,11 @@ const ManageServices = () => {
         })
             .then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete(`https://helpify-server.vercel.app/delete/${id}`)
+                    axios.delete(`https://helpify-server.vercel.app/delete/${id}`,{
+                        headers:{
+                            Authorization:`Bearer ${user.accessToken}`
+                        }
+                    })
                         .then(response => {
                             if (response.data.deletedCount > 0) {
                                 Swal.fire(

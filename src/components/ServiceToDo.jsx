@@ -51,7 +51,15 @@ const ServiceToDo = () => {
             confirmButtonText: 'Yes, update it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.patch(`https://helpify-server.vercel.app/bookings/${bookingId}/status`, { status: newStatus })
+                axios.patch(
+                    `https://helpify-server.vercel.app/bookings/${bookingId}/status`,
+                    { status: newStatus },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${user.accessToken}`
+                        }
+                    }
+                )
                     .then(response => {
                         if (response.data.message === 'Booking status updated successfully!') {
                             Swal.fire(

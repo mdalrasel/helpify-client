@@ -1,11 +1,13 @@
-import  { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
 import { FaTag, FaDollarSign, FaMapMarkerAlt, FaAlignLeft, FaImage, FaUserCircle, FaEnvelope } from 'react-icons/fa';
+import { AuthContext } from '../context/AuthContext';
 
 const UpdateService = () => {
+    const { user } = use(AuthContext)
     const { id } = useParams();
     const navigate = useNavigate();
     const [service, setService] = useState(null);
@@ -41,7 +43,11 @@ const UpdateService = () => {
             description: form.description.value,
         };
 
-        axios.put(`https://helpify-server.vercel.app/update/${id}`, updatedServiceData)
+        axios.put(`https://helpify-server.vercel.app/update/${id}`, updatedServiceData, {
+            headers: {
+                Authorization: `Bearer ${user.accessToken}`
+            }
+        })
             .then(response => {
                 if (response.data.modifiedCount > 0) {
                     Swal.fire({

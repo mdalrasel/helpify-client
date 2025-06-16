@@ -128,7 +128,7 @@ const AllPost = () => {
                                             .filter(service => service.category === category)
                                             .map(service => (
                                                 <div key={service._id} className="card shadow-lg rounded-xl p-4 flex gap-4">
-                                                    <img src={service.image} alt={service.name} className="w-32 h-32 object-cover rounded-lg" />
+                                                    <img src={service.image} alt={service.name} className="w-full h-50 object-cover rounded-lg" />
                                                     <div className="flex-1">
                                                         <h3 className="text-lg font-bold text-primary">{service.name}</h3>
                                                         <p className="text-sm mb-2">

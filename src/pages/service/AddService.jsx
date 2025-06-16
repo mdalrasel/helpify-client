@@ -31,7 +31,11 @@ const AddService = () => {
             providerPhoto:  user?.photoURL,
         };
 
-        axios.post('https://helpify-server.vercel.app/services', newService)
+        axios.post('https://helpify-server.vercel.app/services', newService,{
+             headers: {
+                Authorization: `Bearer ${user.accessToken}`
+            }
+        })
             .then(res => {
                 if (res.data.insertedId || res.data.acknowledged) {
                     Swal.fire({
