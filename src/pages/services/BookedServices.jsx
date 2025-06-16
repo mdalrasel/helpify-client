@@ -1,8 +1,8 @@
 import React, { useEffect, useState, use } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { AuthContext } from '../context/AuthContext';
 import { Link } from 'react-router';
+import { AuthContext } from '../../context/AuthContext';
 
 const BookedServices = () => {
     const { user, loading } = use(AuthContext);

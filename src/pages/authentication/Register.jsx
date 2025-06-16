@@ -73,14 +73,29 @@ const Register = () => {
     }
 
     const handleGoogleLogIn = () => {
-        googleLogIn()
-        .then(() => {
-                navigate(location?.state || '/')
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    }
+            googleLogIn()
+                .then(() => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Google Login Successful!',
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        timerProgressBar: true
+                    });
+                    navigate(location?.state || '/');
+                })
+                .catch(error => {
+                    console.error("Google Login Error:", error);
+                    const errorMessage = "Google login failed. Please try again.";
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Google Login Error!',
+                        text: errorMessage
+                    });
+                })
+        }
 
     return (
         <div className="min-h-screen flex items-center justify-center ">

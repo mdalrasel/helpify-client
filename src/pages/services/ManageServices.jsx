@@ -2,7 +2,7 @@ import { useEffect, useState, use } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Link, useNavigate } from 'react-router';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 
 const ManageServices = () => {
     const { user, loading } = use(AuthContext);

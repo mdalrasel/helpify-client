@@ -28,7 +28,7 @@ const Navbar = () => {
 
     const navLink = <>
         <li><NavLink to='/'>Home</NavLink></li>
-        <li><NavLink to='/allPost'>Service</NavLink></li>
+        <li><NavLink to='/allPost'>Services</NavLink></li>
         {user &&
             <li tabIndex={0}  className="dropdown dropdown-start">
                 <details >

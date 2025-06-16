@@ -1,7 +1,7 @@
 import { useEffect, useState, use } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 
 const ServiceToDo = () => {
     const { user, loading } = use(AuthContext);

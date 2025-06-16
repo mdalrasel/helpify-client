@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router';
 import BookServiceModal from './BookServiceModal';
 import { AuthContext } from '../context/AuthContext';
+import Swal from 'sweetalert2';
 
 const Details = () => {
   const { id } = useParams();
@@ -22,8 +23,11 @@ const Details = () => {
 
   const handleBookNow = () => {
     if (!user) {
-      alert("Please login to book a service.");
-      return;
+      Swal.fire({
+        icon: 'success',
+        title: 'Booked!',
+        text: 'Service booked successfully!'
+      });
     }
     setShowModal(true);
   };

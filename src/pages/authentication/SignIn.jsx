@@ -5,9 +5,10 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { use, useState } from "react";
 import registerLottie from '../../assets/signInLottie.json'
 import Lottie from "lottie-react";
+import Swal from "sweetalert2";
 
 const SignIn = () => {
-    const { logIn,googleLogIn } = use(AuthContext)
+    const { logIn, googleLogIn } = use(AuthContext)
     const [showPassword, setShowPassword] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
@@ -18,6 +19,15 @@ const SignIn = () => {
         const password = e.target.password.value;
         logIn(email, password)
             .then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login Successful!',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    timerProgressBar: true
+                });
                 navigate(`${location.state ? location.state : "/"}`);
             })
             .catch(error => {
@@ -27,16 +37,31 @@ const SignIn = () => {
 
     const handleGoogleLogIn = () => {
         googleLogIn()
-        .then(() => {
-                navigate(location?.state || '/')
+            .then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Google Login Successful!',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    timerProgressBar: true
+                });
+                navigate(location?.state || '/');
             })
             .catch(error => {
-                console.log(error)
+                console.error("Google Login Error:", error);
+                const errorMessage = "Google login failed. Please try again.";
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Google Login Error!',
+                    text: errorMessage
+                });
             })
     }
     return (
         <div className="min-h-screen flex items-center justify-center ">
-            
+
             <div className="flex-1 p-8 rounded-xl shadow-2xl w-full max-w-md">
                 <h2 className="text-2xl font-bold mb-6 text-center">Login to Your Account</h2>
 
@@ -91,7 +116,7 @@ const SignIn = () => {
                 </p>
             </div>
             <div className="flex-1 md:block   hidden">
-                 <Lottie style={{ width: "320px", height: "400px" }} animationData={registerLottie} />
+                <Lottie style={{ width: "320px", height: "400px" }} animationData={registerLottie} />
             </div>
         </div>
     );
