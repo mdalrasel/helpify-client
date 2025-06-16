@@ -3,7 +3,7 @@ import logo from '../assets/Footer.png'
 import { FaFacebook, FaTwitter, FaYoutube } from 'react-icons/fa';
 const Footer = () => {
     return (
-        <footer className="footer md:footer-horizontal   text-base-content p-10">
+        <footer className="bg-base-300 mt-10 footer md:footer-horizontal   text-base-content p-10">
             <aside>
                 <img className='w-20 ' src={logo} alt="" />
                 <p>

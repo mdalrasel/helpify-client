@@ -9,7 +9,7 @@ import 'aos/dist/aos.css';
 import { HelmetProvider } from 'react-helmet-async'
 
 Aos.init({
-  duration: 800,
+  duration: 1000,
   once: true,
 });
 

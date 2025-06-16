@@ -8,7 +8,7 @@ const PopularServices = () => {
     useEffect(() => {
         axios.get('https://helpify-server.vercel.app/services')
             .then(res => {
-                const reversed = res.data.reverse(); 
+                const reversed = res.data.reverse();
                 const latestSix = reversed.slice(0, 6);
                 setServices(latestSix);
             })
@@ -17,16 +17,26 @@ const PopularServices = () => {
 
     return (
         <div className="my-12 px-4 md:px-10">
-            <h2 className="text-3xl font-bold text-center text-primary mb-8">Popular Services</h2>
+            <h2
+                className="text-3xl font-bold text-center text-primary mb-8"
+                data-aos="fade-down" 
+            >
+                Popular Services
+            </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {services.map(service => (
-                    <div key={service._id} className="card shadow-2xl  rounded-2xl p-4 flex gap-4">
+                {services.map((service, index) => (
+                    <div
+                        key={service._id}
+                        className="card shadow-2xl rounded-2xl p-4 flex gap-4"
+                        data-aos="fade-up" 
+                        data-aos-delay={index * 100} 
+                    >
                         <img src={service.image} alt={service.name} className="w-full h-50 object-cover rounded-xl" />
                         <div className="flex flex-col justify-between flex-1">
                             <div>
                                 <h3 className="text-xl font-bold text-primary">{service.name}</h3>
-                                <p className="text-sm  mb-2">
+                                <p className="text-sm mb-2">
                                     {service.description.length > 100 ? service.description.slice(0, 100) + '...' : service.description}
                                 </p>
                             </div>
@@ -45,8 +55,8 @@ const PopularServices = () => {
                 ))}
             </div>
 
-            {/* 👉 More Services Button */}
-            <div className="text-center mt-10">
+            {/*  More Services Button */}
+            <div className="text-center mt-10" data-aos="zoom-in"> 
                 <Link to="/allPost">
                     <button className="btn btn-primary px-8 text-white text-lg font-semibold rounded-xl">
                         More Services

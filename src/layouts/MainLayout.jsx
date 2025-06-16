@@ -12,7 +12,7 @@ const MainLayout = () => {
             <Helmet>
                 <title>{pageTitle}</title>
             </Helmet>
-            <div className='shadow-2xl fixed top-0 left-0 z-50 bg-base-100 w-full'>
+            <div className='shadow-2xl fixed top-0 left-0 z-50 bg-base-300 w-full'>
                 <div className='container mx-auto'><Navbar /></div>
             </div>
             <main className='container mx-auto mt-16 min-h-[calc(100vh-285px)]'>
