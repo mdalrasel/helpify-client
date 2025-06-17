@@ -70,7 +70,7 @@ const Details = () => {
           <div className="text-center">
             <button
               onClick={handleBookNow}
-              className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white text-lg font-semibold py-3 px-8 rounded-full shadow-md transition duration-300"
+              className="custom-btn custom-btn:hover mt-5 "
             >
               Book This Service
             </button>

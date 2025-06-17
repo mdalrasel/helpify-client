@@ -101,7 +101,7 @@ const AllPost = () => {
                         <button
                             key={cat}
                             onClick={() => scrollToCategory(cat)}
-                            className={`block text-left w-full px-4 py-2 rounded duration-300 font-medium ${activeCategory === cat ? 'bg-primary text-white' : 'hover:bg-primary hover:text-white'}`}
+                            className={`block text-left w-full px-4 py-2 rounded duration-300 font-medium ${activeCategory === cat ? 'custom-btn' : 'hover:bg-[#4CAF50] hover:text-white'}`}
                             data-aos="fade-right" 
                             data-aos-delay={index * 50 + 300} 
                         >
@@ -144,7 +144,7 @@ const AllPost = () => {
                                                     <span className="text-base font-semibold text-green-600">${service.price}</span>
                                                 </div>
                                                 <Link to={`/details/${service._id}`}>
-                                                    <button className="btn btn-sm btn-outline btn-primary mt-3">View Details</button>
+                                                    <button className="custom-btn custom-btn:hover mt-5 ">View Details</button>
                                                 </Link>
                                             </div>
                                         </div>
@@ -189,7 +189,7 @@ const AllPost = () => {
                                                             <span className="text-base font-semibold text-green-600">${service.price}</span>
                                                         </div>
                                                         <Link to={`/details/${service._id}`}>
-                                                            <button className="btn btn-sm btn-outline btn-primary mt-3">View Details</button>
+                                                            <button className="custom-btn custom-btn:hover mt-5 ">View Details</button>
                                                         </Link>
                                                     </div>
                                                 </div>

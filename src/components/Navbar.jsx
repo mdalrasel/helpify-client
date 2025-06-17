@@ -91,9 +91,9 @@ const Navbar = () => {
                                 <img src={user.photoURL} alt="User" />
                             </div>
                         </label>
-                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-10 p-2 shadow bg-base-100 rounded-box w-40">
-                            <li><button className="btn btn-sm btn-ghost">{user.displayName}</button></li>
-                            <li><button onClick={handleSignOut} className="btn btn-sm">Sign Out</button></li>
+                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-10 p-2 shadow bg-base-100 rounded-box w-40 text-center">
+                            <li className='py-2 mb-2 border rounded-md'>{user.displayName}</li>
+                            <li className='text-center'><button onClick={handleSignOut} className="custom-btn text-center">Sign Out</button></li>
                         </ul>
                     </div>
                 ) : (

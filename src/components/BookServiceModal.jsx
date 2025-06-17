@@ -120,7 +120,7 @@ const BookServiceModal = ({ service, onClose }) => {
             <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-4xl relative my-8 overflow-y-auto max-h-[90vh]">
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-3xl font-bold transition-transform transform hover:rotate-90"
+                    className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-3xl font-bold hover:text-5xl"
                 >
                     &times;
                 </button>
@@ -132,20 +132,20 @@ const BookServiceModal = ({ service, onClose }) => {
                             <FaTag /> Service Details
                         </h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div className="md:col-span-2 mb-4">
+                            <div className="md:col-span-2 mb-10">
                                 <label className="block text-gray-700 text-sm font-bold mb-2">Service Image:</label>
                                 <img src={service.image} alt={service.name} className="w-full h-full object-cover rounded-md border border-gray-300" />
                                 <input type="hidden" value={service.image} name="serviceImage" />
                             </div>
                             <div>
                                 <label className="block text-gray-700 text-sm font-bold mb-2">Service ID:</label>
-                                <input type="text" className="form-input" value={service._id} readOnly />
+                                <input type="text" className="form-input text-gray-700" value={service._id} readOnly />
                             </div>
                             <div>
                                 <label className="block text-gray-700 text-sm font-bold mb-2">Service Name:</label>
-                                <input type="text" className="form-input" value={service.name} readOnly />
+                                <input type="text" className="form-input text-gray-700" value={service.name} readOnly />
                             </div>
-                            <div className="md:col-span-2">
+                            <div className="md:col-span-2 mt-10">
                                 <label className=" text-gray-700 text-sm font-bold mb-2 flex items-center gap-1">
                                     <FaDollarSign /> Price:
                                 </label>
@@ -154,7 +154,7 @@ const BookServiceModal = ({ service, onClose }) => {
                         </div>
                     </div>
 
-                    <div className="bg-white p-6 rounded-lg shadow-md">
+                    <div className="p-6 rounded-lg shadow-md">
                         <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
                             <FaCalendarAlt /> Booking Specifics
                         </h3>
@@ -166,7 +166,7 @@ const BookServiceModal = ({ service, onClose }) => {
                                 <input
                                     type="date"
                                     id="serviceTakingDate"
-                                    className="w-full form-input"
+                                    className="w-full form-input text-gray-700"
                                     value={serviceTakingDate}
                                     onChange={(e) => setServiceTakingDate(e.target.value)}
                                     required
@@ -178,7 +178,7 @@ const BookServiceModal = ({ service, onClose }) => {
                                 </label>
                                 <textarea
                                     id="specialInstruction"
-                                    className="w-full form-textarea h-24"
+                                    className="w-full form-textarea h-24 text-gray-700"
                                     value={specialInstruction}
                                     onChange={(e) => setSpecialInstruction(e.target.value)}
                                     required
@@ -198,19 +198,19 @@ const BookServiceModal = ({ service, onClose }) => {
                                     <img src={providerPhoto} alt={providerName} className="w-12 h-12 rounded-full border-2 border-blue-400 object-cover" />
                                     <div className="flex-1">
                                         <label className="block text-gray-700 text-sm font-bold mb-1">Name:</label>
-                                        <input type="text" className="form-input" value={providerName} readOnly />
+                                        <input type="text" className="form-input text-gray-700" value={providerName} readOnly />
                                     </div>
                                 </div>
                                 <div>
                                     <label className=" text-gray-700 text-sm font-bold mb-1 flex items-center gap-1">
                                         <FaEnvelope /> Email:
                                     </label>
-                                    <input type="email" className="form-input" value={providerEmail} readOnly />
+                                    <input type="email" className="form-input text-gray-700" value={providerEmail} readOnly />
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-white p-6 rounded-lg shadow-md">
+                        <div className=" p-6 rounded-lg shadow-md">
                             <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
                                 <FaUserCircle /> Your Info
                             </h3>
@@ -219,14 +219,14 @@ const BookServiceModal = ({ service, onClose }) => {
                                     <img src={userPhoto} alt={user?.displayName || 'User'} className="w-12 h-12 rounded-full border-2 border-green-400 object-cover" />
                                     <div className="flex-1">
                                         <label className="block text-gray-700 text-sm font-bold mb-1">Name:</label>
-                                        <input type="text" className="form-input" value={user?.displayName || ''} readOnly />
+                                        <input type="text" className="form-input text-gray-700" value={user?.displayName || ''} readOnly />
                                     </div>
                                 </div>
                                 <div>
                                     <label className=" text-gray-700 text-sm font-bold mb-1 flex items-center gap-1">
                                         <FaEnvelope /> Email:
                                     </label>
-                                    <input type="email" className="form-input" value={user?.email || ''} readOnly />
+                                    <input type="email" className="form-input text-gray-700" value={user?.email || ''} readOnly />
                                 </div>
                             </div>
                         </div>
@@ -251,7 +251,7 @@ const BookServiceModal = ({ service, onClose }) => {
                             className={`py-2 px-6 rounded-lg font-bold transition duration-300 flex items-center gap-2 
                                 ${isOwnPost
                                     ? "bg-gray-400 text-gray-700 cursor-not-allowed"
-                                    : "bg-green-600 hover:bg-green-700 text-white"
+                                    : "custom-btn custom-btn:hover"
                                 }`}
                         >
                             <FaDollarSign /> Purchase

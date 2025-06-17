@@ -48,7 +48,7 @@ const PopularServices = () => {
                                 <span className="text-base font-semibold text-green-600">${service.price}</span>
                             </div>
                             <Link to={`/details/${service._id}`}>
-                                <button className="btn btn-sm btn-outline btn-primary mt-3">View Details</button>
+                                <button className="custom-btn custom-btn:hover mt-5 ">View Details</button>
                             </Link>
                         </div>
                     </div>
@@ -57,8 +57,8 @@ const PopularServices = () => {
 
             {/*  More Services Button */}
             <div className="text-center mt-10" data-aos="zoom-in"> 
-                <Link to="/allPost">
-                    <button className="btn btn-primary px-8 text-white text-lg font-semibold rounded-xl">
+                <Link  to="/allPost">
+                    <button className="custom-btn custom-btn:hover mt-5 px-10">
                         More Services
                     </button>
                 </Link>

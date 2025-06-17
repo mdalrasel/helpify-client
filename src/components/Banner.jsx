@@ -1,11 +1,12 @@
 import { FaArrowRight } from "react-icons/fa";
 import { Typewriter } from "react-simple-typewriter";
 import banner01 from "../../src/assets/banner01.jpg";
+import { Link } from "react-router";
 
 const Banner = () => {
   return (
     <div
-      className="w-full min-h-[90vh]  bg-cover bg-center flex items-center text-white px-6"
+      className=" min-h-[90vh]  rounded-2xl bg-cover bg-center flex items-center text-white px-6"
       style={{
         backgroundImage: `url(${banner01})`,
       }}
@@ -31,11 +32,13 @@ const Banner = () => {
             />
           </span>
         </h1>
-        <p className="mt-2 text-lg"  data-aos="fade-left">
+        <p className="mt-2 text-lg" data-aos="fade-left">
           Learn from top instructors and gain real-world skills from anywhere in the world.
         </p>
-        <button data-aos="zoom-in" className=" mt-6 px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-full flex items-center gap-2 mx-auto">
-          Explore More <FaArrowRight />
+        <button className="custom-btn custom-btn:hover mt-5 ">
+          <Link to="/allPost" data-aos="zoom-in" className=" rounded-full flex items-center gap-2 mx-auto">
+            Explore More <FaArrowRight />
+          </Link>
         </button>
       </div>
     </div>
