@@ -49,7 +49,7 @@ const Navbar = () => {
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className=" lg:hidden">
-                        <IoMenu size={25} />
+                        <IoMenu size={30} />
                     </div>
                     <ul
                         tabIndex={0}

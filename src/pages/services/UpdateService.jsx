@@ -157,7 +157,7 @@ const UpdateService = () => {
                     <input type="text" value={service.providerPhoto} disabled className="input input-bordered bg-gray-100" />
                 </label>
 
-                <button type="submit" className="btn btn-primary mt-4 w-full text-white font-bold text-lg">
+                <button type="submit" className="custom-btn custom-btn:hover">
                     Update Service
                 </button>
             </form>
